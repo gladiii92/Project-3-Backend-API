@@ -10,7 +10,7 @@ const personSchema = new mongoose.Schema({
 const Person = mongoose.model('Person', personSchema);
 
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('DB connected')) // das läuft nur, wenn die URI stimmt
+  .then(() => console.log('DB connected')) // läuft nur, wenn die URI stimmt
   .catch(err => console.error('DB connection error:', err));
 
 
@@ -35,7 +35,9 @@ const createManyPeople = (arrayOfPeople, done) => {
 };
 
 const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
+  Person.find({ name: personName }, (err, data) => {
+    if (err) return done(err);
+  });
 };
 
 const findOneByFood = (food, done) => {
