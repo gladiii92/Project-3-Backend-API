@@ -15,7 +15,16 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 const createAndSavePerson = (done) => {
-  done(null /*, data*/);
+  const person = new Person({
+    name: "Alice",
+    age: 25,
+    favoriteFoods: ["pizza", "salad"]
+  });
+
+  person.save((err, data) => {
+    if (err) return done(err);
+    done(null, data);
+  });
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
